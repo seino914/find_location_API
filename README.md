@@ -17,6 +17,11 @@ uvicorn app.main:app --reload
 }
 ```
 
+### API 情報
+
+Google Map API を使用
+Google Cloud で API 確認する
+
 <details>
 <summary>memo</summary>
 
