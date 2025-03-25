@@ -10,11 +10,19 @@ import time
 from datetime import datetime
 
 # ロギングの設定
+# ログファイル名を一度だけ生成
+log_filename = f'log/{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'
+
+# logディレクトリが存在しない場合は作成
+if not os.path.exists('log'):
+    os.makedirs('log')
+
+# ロギング設定
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('app.log'),
+        logging.FileHandler(log_filename, mode='a'),
         logging.StreamHandler()
     ]
 )
@@ -23,7 +31,7 @@ logger = logging.getLogger(__name__)
 # 環境変数の読み込み
 load_dotenv()
 
-app = FastAPI(title="店舗情報取得API")
+app = FastAPI(title="find_location_api")
 
 # Google Maps APIクライアントの初期化
 gmaps = googlemaps.Client(key=os.getenv("GOOGLE_MAPS_API_KEY"))
